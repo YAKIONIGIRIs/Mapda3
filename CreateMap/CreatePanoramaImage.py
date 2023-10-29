@@ -4,11 +4,11 @@ import cv2
 import os
 import glob
 
-def CreatePanoramaImage():
-    # 撮影した入力となる画像を下記のディレクトリに保存
+def CreatePanoramaImage(timeStanp):
+    # 入力となる画像が保存されているディレクトリを指定
     input_dir_path = "../../image/"
-    # 作成したパノラマ画像を下記のファイルに保存
-    output_dir_path = "../../image-out/output.jpg"
+    # 作成したパノラマ画像の保存先を指定
+    output_dir_path = "../../image-out/" + str(timeStanp) + ".jpg"
 
     # 入力画像を読み取ってリストに格納
     input_images = glob.glob(os.path.join(input_dir_path, "*"))
@@ -22,7 +22,7 @@ def CreatePanoramaImage():
             exit()
         tmp_list.append(image)
     if len(tmp_list) == 1:
-        cv2.imwrite(args.output, input_images[0])
+        cv2.imwrite(output_dir_path, input_images[0])
     else:
         stitcher = cv2.Stitcher.create()
         stitched = stitcher.stitch(tmp_list)
@@ -32,4 +32,5 @@ def CreatePanoramaImage():
     for i in input_images:
         os.remove(i)
 
-CreatePanoramaImage()
+    # 作成したパノラマ画像のファイル名を返す
+    return str(timeStanp) + ".jpg"
