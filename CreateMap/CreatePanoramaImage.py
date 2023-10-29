@@ -4,11 +4,11 @@ import cv2
 import os
 import glob
 
-def CreatePanoramaImage(timeStanp):
+def CreatePanoramaImage(timeStamp):
     # 入力となる画像が保存されているディレクトリを指定
     input_dir_path = "../../image/"
     # 作成したパノラマ画像の保存先を指定
-    output_dir_path = "../../image-out/" + str(timeStanp) + ".jpg"
+    output_dir_path = "../../image-out/" + str(timeStamp) + ".jpg"
 
     # 入力画像を読み取ってリストに格納
     input_images = glob.glob(os.path.join(input_dir_path, "*"))
@@ -33,4 +33,4 @@ def CreatePanoramaImage(timeStanp):
         os.remove(i)
 
     # 作成したパノラマ画像のファイル名を返す
-    return str(timeStanp) + ".jpg"
+    return str(timeStamp) + ".jpg"
