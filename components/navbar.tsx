@@ -25,7 +25,7 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Image src="/logo.png" alt="ACME" width={40} height={40} />
+            <Image src="/logo.png" alt="Mapda3" width={40} height={40} />
             <p className="font-bold text-inherit ml-1">Mapda3</p>
           </NextLink>
         </NavbarBrand>
