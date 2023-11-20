@@ -18,79 +18,19 @@ export default function WelcomePage() {
       key: "0",
       department: "東京駅",
       destination: "六本木",
-      status: "Active",
+      user: "Alice",
     },
     {
       key: "1",
       department: "東京スカイツリー",
       destination: "池袋駅",
-      status: "Active",
+      user: "Bob",
     },
     {
       key: "2",
-      department: "Zoey Lang",
-      destination: "Technical Lead",
-      status: "Paused",
-    },
-    {
-      key: "3",
-      department: "Jane Fisher",
-      destination: "Senior Developer",
-      status: "Active",
-    },
-    {
-      key: "4",
-      department: "William Howard",
-      destination: "Community Manager",
-      status: "Vacation",
-    },
-    {
-      key: "5",
-      department: "Person 5",
-      destination: "Role 5",
-      status: "Status 5",
-    },
-    {
-      key: "6",
-      department: "Person 6",
-      destination: "Role 6",
-      status: "Status 6",
-    },
-    {
-      key: "7",
-      department: "Person 7",
-      destination: "Role 7",
-      status: "Status 7",
-    },
-    {
-      key: "8",
-      department: "Person 8",
-      destination: "Role 8",
-      status: "Status 8",
-    },
-    {
-      key: "9",
-      department: "Person 9",
-      destination: "Role 9",
-      status: "Status 9",
-    },
-    {
-      key: "10",
-      department: "Person 10",
-      destination: "Role 10",
-      status: "Status 10",
-    },
-    {
-      key: "11",
-      department: "Person 11",
-      destination: "Role 11",
-      status: "Status 11",
-    },
-    {
-      key: "12",
-      department: "Person 12",
-      destination: "Role 12",
-      status: "Status 12",
+      department: "マツダスタジアム",
+      destination: "宮島口",
+      user: "Charlie",
     },
   ];
 
@@ -104,12 +44,35 @@ export default function WelcomePage() {
       label: "到着",
     },
     {
-      key: "status",
-      label: "STATUS",
+      key: "user",
+      label: "ユーザー",
     },
   ];
 
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
+
+  const center = {
+    lat: 35.6653282,
+    lng: 139.73645059999998,
+  };
+
+  interface Path {
+    lat: number;
+    lng: number;
+  }
+
+  const getCenter = (path: Path[] | null) => {
+    if (path === null) {
+      return;
+    }
+    const lat = path.map((p) => p.lat);
+    const lng = path.map((p) => p.lng);
+    const center = {
+      lat: (Math.max(...lat) + Math.min(...lat)) / 2,
+      lng: (Math.max(...lng) + Math.min(...lng)) / 2,
+    };
+    return center;
+  };
 
   return (
     <div className="grid grid-cols-2 gap-4">
@@ -117,13 +80,15 @@ export default function WelcomePage() {
         <Table
           color="primary"
           selectionMode="single"
-          aria-label="Example table with dynamic content"
+          aria-label="Path table"
+          disallowEmptySelection
           defaultSelectedKeys={["0"]}
           selectedKeys={[selectedItemIndex.toString()]}
           selectionBehavior="replace"
           onSelectionChange={(key) => {
             const selectedIndex = Array.from(key)[0];
-            setSelectedItemIndex(Number(selectedIndex));
+            setSelectedItemIndex(Number(selectedIndex ?? 0));
+            console.log(selectedIndex);
           }}
         >
           <TableHeader columns={columns}>
@@ -143,7 +108,10 @@ export default function WelcomePage() {
         </Table>
       </div>
       <div>
-        <MyGoogleMapComponent path={routeExample[selectedItemIndex]} />
+        <MyGoogleMapComponent
+          path={routeExample[selectedItemIndex]}
+          center={getCenter(routeExample[selectedItemIndex]) ?? center}
+        />
       </div>
     </div>
   );
