@@ -29,8 +29,8 @@ const MyGoogleMapComponent: React.FC<MyGoogleMapProps> = ({ path, center }) => {
         <PolylineF
           path={path}
           options={{
-            strokeColor: "#FFFF01",
-            strokeOpacity: 0.6,
+            strokeColor: "#FF8C00",
+            strokeOpacity: 0.8,
             strokeWeight: 8,
           }}
         />
