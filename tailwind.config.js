@@ -27,5 +27,19 @@ module.exports = {
         },
       },
     }),
+    nextui({
+      themes: {
+        light: {
+          colors: {
+            background: "#edf2f7",
+            primary: {
+              DEFAULT: "skyblue",
+              foreground: "#000000",
+            },
+            focus: "#BEF264",
+          },
+        },
+      },
+    }),
   ],
 };
