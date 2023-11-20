@@ -16,7 +16,7 @@ export default function Home() {
         color="primary"
         variant="shadow"
         radius="full"
-        href="/blog"
+        href="/welcome"
         size="lg"
         as={NextLink}
       >
