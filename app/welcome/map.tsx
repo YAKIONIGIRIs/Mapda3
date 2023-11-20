@@ -5,6 +5,7 @@ import { mapStyle } from "./mapConfig";
 
 interface MyGoogleMapProps {
   path: { lat: number; lng: number }[];
+  center: { lat: number; lng: number };
 }
 
 const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY || "";
@@ -16,12 +17,7 @@ const containerStyle = {
   boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
 };
 
-const center = {
-  lat: 35.6653282,
-  lng: 139.73645059999998,
-};
-
-const MyGoogleMapComponent: React.FC<MyGoogleMapProps> = ({ path }) => {
+const MyGoogleMapComponent: React.FC<MyGoogleMapProps> = ({ path, center }) => {
   return (
     <LoadScript googleMapsApiKey={apiKey}>
       <GoogleMap
