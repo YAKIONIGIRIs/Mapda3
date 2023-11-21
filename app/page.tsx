@@ -1,5 +1,7 @@
+"use client";
 import { subtitle, title } from "@/components/primitives";
 import { Button } from "@nextui-org/button";
+import { ConnectWallet } from "@thirdweb-dev/react";
 import NextLink from "next/link";
 
 export default function Home() {
@@ -22,6 +24,7 @@ export default function Home() {
       >
         開始
       </Button>
+      <ConnectWallet theme={"light"} modalSize={"wide"} />
     </section>
   );
 }
