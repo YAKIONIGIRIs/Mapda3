@@ -25,9 +25,10 @@ import requests
 url = "https://r5gg3wiyb6.execute-api.ap-northeast-1.amazonaws.com/default/CreateImage"
 # タイムスタンプを指定（デモ用の値はdemo）
 demodata = 'timestamp=demo'
+# GETで接続
 r = requests.get(
         url,
-        params=demodata
+        params = demodata
     )
 
 # S3に保存されたパノラマ画像の署名付きurlを出力
