@@ -1,10 +1,11 @@
 "use client";
 import { subtitle, title } from "@/components/primitives";
 import { Button } from "@nextui-org/button";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import NextLink from "next/link";
 
 export default function Home() {
+  const address = useAddress();
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-lg text-center justify-center">
@@ -14,17 +15,32 @@ export default function Home() {
           Next generation map on Web3
         </h2>
       </div>
-      <Button
-        color="primary"
-        variant="shadow"
-        radius="full"
-        href="/welcome"
-        size="lg"
-        as={NextLink}
-      >
-        開始
-      </Button>
-      <ConnectWallet theme={"light"} modalSize={"wide"} />
+      {address ? (
+        <Button
+          color="primary"
+          variant="shadow"
+          radius="full"
+          href="/welcome"
+          size="lg"
+          as={NextLink}
+          >
+          開始
+        </Button>
+        // <ConnectWallet theme={"light"} modalSize={"wide"}/>
+        ) : (
+        <Button
+          color="primary"
+          variant="shadow"
+          radius="full"
+          href="/welcome"
+          size="lg"
+          as={NextLink}
+          isDisabled
+          >
+          開始
+        </Button>
+        )}
+        <ConnectWallet theme={"light"} modalSize={"wide"} btnTitle="ログイン"/>
     </section>
   );
 }

@@ -51,8 +51,12 @@ export const Navbar = () => {
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        <NavbarItem className="hidden sm:flex gap-2">
-          <ThemeSwitch />
+      <NavbarItem className="hidden sm:flex gap-2">
+        <Image src="/png_vla/001.png" alt="vla_001" width={40} height={40} />
+        <Image src="/png_vla/002.png" alt="vla_002" width={40} height={40} />
+        <Image src="/png_vla/003.png" alt="vla_003" width={40} height={40} />
+        <Image src="/png_vla/004.png" alt="vla_004" width={40} height={40} />
+        <ThemeSwitch />
         </NavbarItem>
       </NavbarContent>
 
