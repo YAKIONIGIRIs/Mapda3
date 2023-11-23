@@ -10,9 +10,27 @@ import {
 } from "@nextui-org/react";
 import MyGoogleMapComponent from "./map";
 import { routeExample } from "./routeExample";
+import { useAddress } from "@thirdweb-dev/react";
 import React from "react";
+import Image from "next/image";
+
+function pad(num : number, size : number) : string {
+  let s = num + "";
+  while (s.length < size) s = "0" + s;
+  return s;
+}
 
 export default function WelcomePage() {
+  const address : string | undefined = useAddress();
+  let icon_num_str : string;
+  if (address != undefined) {
+    const icon_num : number = (parseInt(address, 16) % 95) + 1;
+    icon_num_str = pad(icon_num, 3);
+  } else {
+    icon_num_str = "000";
+  }
+  const vla_path : string = "/png_vla/" + icon_num_str + ".png"; 
+  const vla_alt : string = "vla_" + icon_num_str; 
   const rows = [
     {
       key: "0",
@@ -75,43 +93,53 @@ export default function WelcomePage() {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <div>
-        <Table
-          color="primary"
-          selectionMode="single"
-          aria-label="Path table"
-          disallowEmptySelection
-          defaultSelectedKeys={["0"]}
-          selectedKeys={[selectedItemIndex.toString()]}
-          selectionBehavior="replace"
-          onSelectionChange={(key) => {
-            const selectedIndex = Array.from(key)[0];
-            setSelectedItemIndex(Number(selectedIndex ?? 0));
-            console.log(selectedIndex);
-          }}
-        >
-          <TableHeader columns={columns}>
-            {(column) => (
-              <TableColumn key={column.key}>{column.label}</TableColumn>
-            )}
-          </TableHeader>
-          <TableBody items={rows}>
-            {(item) => (
-              <TableRow key={item.key}>
-                {(columnKey) => (
-                  <TableCell>{getKeyValue(item, columnKey)}</TableCell>
-                )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+    <div>
+      <div className="flex floe-row items-center">
+        <div className="rounded-full bg-white border border-black m-4">
+          <Image src={vla_path} alt={vla_alt} width={60} height={60} className="object-contain h-auto m-auto" />
+        </div>
+        <div className="">
+          <p className="text-2xl">私の経路一覧</p>
+        </div>
       </div>
-      <div>
-        <MyGoogleMapComponent
-          path={routeExample[selectedItemIndex]}
-          center={getCenter(routeExample[selectedItemIndex]) ?? center}
-        />
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <Table
+            color="primary"
+            selectionMode="single"
+            aria-label="Path table"
+            disallowEmptySelection
+            defaultSelectedKeys={["0"]}
+            selectedKeys={[selectedItemIndex.toString()]}
+            selectionBehavior="replace"
+            onSelectionChange={(key) => {
+              const selectedIndex = Array.from(key)[0];
+              setSelectedItemIndex(Number(selectedIndex ?? 0));
+              console.log(selectedIndex);
+            }}
+          >
+            <TableHeader columns={columns}>
+              {(column) => (
+                <TableColumn key={column.key}>{column.label}</TableColumn>
+              )}
+            </TableHeader>
+            <TableBody items={rows}>
+              {(item) => (
+                <TableRow key={item.key}>
+                  {(columnKey) => (
+                    <TableCell>{getKeyValue(item, columnKey)}</TableCell>
+                  )}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+        <div>
+          <MyGoogleMapComponent
+            path={routeExample[selectedItemIndex]}
+            center={getCenter(routeExample[selectedItemIndex]) ?? center}
+          />
+        </div>
       </div>
     </div>
   );
