@@ -58,7 +58,7 @@ export default function Home() {
             <ConnectWallet
               theme={"light"}
               modalSize={"wide"}
-              btnTitle={"⚡ はじめる"}
+              btnTitle={"🚙 はじめる"}
             />
           </div>
         </div>
