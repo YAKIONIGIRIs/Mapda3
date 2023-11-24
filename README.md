@@ -1,40 +1,51 @@
-# Next.js & NextUI Template
+![header](public/header.png)
 
-This is a template for creating applications using Next.js 13 (app directory) and NextUI (v2).
+# Mapda3
 
-## Technologies Used
+行き交う車たちで作る、あの日、あの時、あなただけの新しい地図の形<br>
+「Mapda3」はあなたのドライブルートと、ルート上のドライブ時のストリートビューを自動でNFT化し、共有することができる全く新しいアプリケーションです。
 
-- [Next.js 13](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+[mapda3.vercel.app](https://mapda3.vercel.app/)
+<br>
+<br>
 
-## How to Use
+# 概要
+## 自分だけの地図を作ろう
+従来は経路、映像、それぞれで記録はできても、それらは結び付いてはいませんでした。<br>
+「Mapda3」では、行き交う車と協力し、周囲をマッピングします。<br>
+あなたの経路を地図表示し、その経路はストリートビューとして閲覧可能です。
 
+## ドライブに適した共有方法
+あなたが「Mapda3」を使いドライブをすると、その経路、景色は自動でNFT化されます。<br>
+まずは、GPSで経路を記録します。<br>
+さらに、車載カメラの映像から周囲のパノラマ画像を作成し、実際のドライブ時に見えた景色をストリートビューとして経路に紐づけます。<br>
+ただ経路を記録するよりも鮮明に、<br>
+ただ動画を記録するよりもアクセシブルに、<br>
+あなたのドライブをSNSで共有することができます。
 
-### Use the template with create-next-app
+## ドライブをするだけでトークンを稼ごう
+あなたがドライブ中にすれ違う車が「Mapda3」を使っていた場合、あなたはほかの車のストリートビュー作成に協力することができます。<br>
+あなたの車が作成したパノラマ画像を行き交う車と共有するたびに、あなたはトークンを得ることができます。<br>
+さらにドライブ後、NFT化された経路とストリートビューの一体データを共有設定にした場合、
+あなたのドライブが誰かに参照される、あなたのドライブルートを誰かが参考にするたびに、あなたはトークンを得ることができます。
+<br>
+<br>
 
-To create a new project based on this template using `create-next-app`, run the following command:
-
+# つかいかた
+## 1. git clone
+まずは`git clone`を行い、ディレクトリを移動します。
 ```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
+git clone https://github.com/YAKIONIGIRIs/Mapda3.git
+cd Mapda3
 ```
 
-### Install dependencies
-
+## 2. 依存関係をインストール
+`npm install`で依存関係をインストールします。
 ```bash
 npm install
 ```
 
-### Run the development server
-
+## ※開発環境にパッケージをインストールする場合
 ```bash
 npm run dev
 ```
-
-## License
-
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
