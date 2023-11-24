@@ -13,6 +13,7 @@ import NextLink from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useContract } from "@thirdweb-dev/react";
+import Image from "next/image";
 
 export default function Home() {
   const address = useAddress();
@@ -41,25 +42,38 @@ export default function Home() {
   console.log(nft2);
 
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="inline-block max-w-lg text-center justify-center">
-        <h1 className={title()}>Welcome to&nbsp;</h1>
-        <h1 className={title({ color: "blue" })}>Mapda3&nbsp;</h1>
-        <h2 className={subtitle({ class: "mt-4" })}>
-          Next generation map on Web3
-        </h2>
+    <>
+      <div className="grid grid-cols-2 gap-4 h-full">
+        <div className="flex flex-col justify-center">
+          <div className="inline-block justify-center">
+            <h1 className={title({ size: "lg" })}>Welcome to&nbsp;</h1>
+            <h1 className={title({ color: "blue", size: "lg" })}>
+              Mapda3&nbsp;
+            </h1>
+            <h2 className={subtitle({ class: "mt-6 mb-10" })}>
+              走行経路のNFT化 × みんなで作るリアルタイムストリートビュー
+            </h2>
+          </div>
+          <div>
+            <ConnectWallet
+              theme={"light"}
+              modalSize={"wide"}
+              btnTitle={"⚡ はじめる"}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col justify-center">
+          <div>
+            <Image
+              src="/eyecatch.png"
+              alt="eyecatch"
+              width={1200}
+              height={1200}
+              style={{ objectFit: "contain", borderRadius: "2rem" }}
+            />
+          </div>
+        </div>
       </div>
-      <Button
-        color="primary"
-        variant="shadow"
-        radius="full"
-        href="/home"
-        size="lg"
-        as={NextLink}
-      >
-        開始
-      </Button>
-      <ConnectWallet theme={"light"} modalSize={"wide"} />
-    </section>
+    </>
   );
 }
