@@ -19,11 +19,11 @@ export default function Home() {
   const address = useAddress();
   const router = useRouter();
 
-  // React.useEffect(() => {
-  //   if (address) {
-  //     router.push("/welcome");
-  //   }
-  // }, [address]);
+  React.useEffect(() => {
+    if (address) {
+      router.push("/home");
+    }
+  }, [address]);
   const { contract } = useContract(
     "0x9Ec728b16cC14463A0FCA838896E2fEB69265bec"
     // "0x3F04C53C53961AAbF7B9C9797Ad295e74Cb08A14", // test nft drop
