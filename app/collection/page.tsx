@@ -25,7 +25,6 @@ import {
   Web3Button,
   useAddress,
   useContract,
-  useNFTs,
   useOwnedNFTs,
 } from "@thirdweb-dev/react";
 import NextLink from "next/link";
@@ -146,7 +145,7 @@ export default function HomePage() {
       ) : (
         <>
           <div className="flex items-center justify-center mb-8 pt-8">
-            <h1 className={title({ size: "sm" })}>みんなの経路🚗</h1>
+            <h1 className={title({ size: "sm" })}>ルートコレクション🗺</h1>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
