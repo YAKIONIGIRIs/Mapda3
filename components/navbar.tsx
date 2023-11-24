@@ -19,7 +19,6 @@ import Image from "next/image";
 
 export const Navbar = () => {
   const address = useAddress();
-  console.log(address);
   return (
     <NextUINavbar maxWidth="xl" position="sticky" className="py-1">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
