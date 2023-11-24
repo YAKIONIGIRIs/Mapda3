@@ -1,7 +1,14 @@
 "use client";
 import { title } from "@/components/primitives";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import {
   Avatar,
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   Spinner,
   Table,
   TableBody,
@@ -9,21 +16,15 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
+  Tooltip,
   getKeyValue,
+  useDisclosure,
 } from "@nextui-org/react";
-import {
-  NFT,
-  NFTMetadata,
-  Web3Button,
-  useAddress,
-  useContract,
-  useNFTs,
-} from "@thirdweb-dev/react";
+import { Web3Button, useContract, useNFTs } from "@thirdweb-dev/react";
+import NextLink from "next/link";
 import React from "react";
 import MyGoogleMapComponent from "./map";
 import { routeExample } from "./routeExample";
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import { table } from "console";
 export default function HomePage() {
   const rows = [
     {
@@ -67,14 +68,14 @@ export default function HomePage() {
       key: "destination",
       label: "到着",
     },
-    // { key: "action", label: "claim" },
-    // {
-    //   key: "user",
-    //   label: "ユーザー",
-    // },
+    { key: "action", label: "claim" },
   ];
 
+  type ModalPhase = "claim" | "success";
+
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [modalPhase, setModalPhase] = React.useState<ModalPhase>("claim");
 
   const center = {
     lat: 35.6653282,
@@ -99,18 +100,9 @@ export default function HomePage() {
     return center;
   };
 
-  // TODO: useNFTsして全部のデータを取ってくる
-  // publisherの項目から、何かしらユーザー名を表示する
-
-  const [loading, setLoading] = React.useState(true);
-
-  const walletAddress = useAddress();
   const contractAddress = "0x3a717c0cCE5bdF8a662B238cF1245CC90e87b21e";
-  const { contract, isLoading: isContractLoading } =
-    useContract(contractAddress);
-  const { data: nfts, isLoading: isNFTLoading } = useNFTs(contract);
-  console.log(nfts);
-  console.log(isNFTLoading);
+  const { contract } = useContract(contractAddress);
+  const { data: nfts } = useNFTs(contract);
 
   const getVeryLongAnimalImageName = (userID: string) => {
     const lastFour = userID.slice(-4);
@@ -119,7 +111,6 @@ export default function HomePage() {
     const id = (parseInt(lastFour, 16) % 96) + 1;
     return "/vla/" + id.toString().padStart(3, "0") + ".png";
   };
-  // let tableData= {};
 
   const tableData = nfts?.map((nft, i) => {
     return {
@@ -138,31 +129,6 @@ export default function HomePage() {
       action: "claim",
     };
   });
-  console.log(tableData);
-
-  React.useEffect(() => {
-    if (
-      tableData !== undefined &&
-      tableData.length > 0 &&
-      isNFTLoading === false &&
-      isContractLoading === false
-    ) {
-      setLoading(false);
-    }
-  }, [tableData]);
-
-  // const { mutateAsync: claimNft } = useClaimNFT(contract);
-
-  // const { data: nft } = useNFT(contract, 3);
-  // console.log(nft);
-  // const route = nft?.metadata?.attributes;
-  // // eslint-disable-next-line
-  // // console.log(JSON.parse(route[2].value));
-  // const { data: contractData } = useMetadata(contract);
-  // console.log(contractData);
-
-  // const { data: nft2 } = useOwnedNFTs(contract, walletAddress);
-  // console.log(nft2);
 
   return (
     <>
@@ -206,6 +172,13 @@ export default function HomePage() {
                               size="md"
                               radius="lg"
                             />
+                          ) : columnKey === "action" ? (
+                            <Tooltip content="NFTマップを取得">
+                              <PlusCircleIcon
+                                className="h-5 w-5 cursor-pointer"
+                                onClick={onOpen}
+                              />
+                            </Tooltip>
                           ) : (
                             getKeyValue(item, columnKey)
                           )}
@@ -224,6 +197,65 @@ export default function HomePage() {
               />
             </div>
           </div>
+          <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+            {modalPhase === "claim" ? (
+              <ModalContent>
+                {(onClose) => (
+                  <>
+                    <ModalHeader className="flex flex-col gap-1">
+                      NFTマップを取得
+                    </ModalHeader>
+                    <ModalBody>
+                      <p>
+                        <b>{tableData![selectedItemIndex].title}</b>
+                        のNFTマップをClaim（購入）しますか？
+                      </p>
+                      <p>
+                        購入するとNFTマップに紐づいたストリートビューが閲覧できるようになります。
+                      </p>
+                    </ModalBody>
+                    <ModalFooter className="flex">
+                      <Button variant="light" onPress={onClose}>
+                        Close
+                      </Button>
+                      <Web3Button
+                        theme={"light"}
+                        contractAddress={contractAddress}
+                        action={(contract) => contract.erc1155.claim(0, 1)}
+                        onSuccess={() => setModalPhase("success")}
+                      >
+                        Claim NFT
+                      </Web3Button>
+                    </ModalFooter>
+                  </>
+                )}
+              </ModalContent>
+            ) : (
+              <ModalContent>
+                {(onClose) => (
+                  <>
+                    <ModalHeader className="flex flex-col gap-1">
+                      Claim完了
+                    </ModalHeader>
+                    <ModalBody>
+                      <p>
+                        <b>{tableData![selectedItemIndex].title}</b>
+                        のNFTマップをClaim（購入）しました🎉
+                      </p>
+                    </ModalBody>
+                    <ModalFooter className="flex">
+                      <Button variant="light" onPress={onClose}>
+                        Close
+                      </Button>
+                      <Button color="success" href="/collection" as={NextLink}>
+                        ルートコレクションへ
+                      </Button>
+                    </ModalFooter>
+                  </>
+                )}
+              </ModalContent>
+            )}
+          </Modal>
         </>
       )}
     </>
