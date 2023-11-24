@@ -1,4 +1,6 @@
 "use client";
+import { ThemeSwitch } from "@/components/theme-switch";
+import { siteConfig } from "@/config/site";
 import { Link } from "@nextui-org/link";
 import {
   NavbarBrand,
@@ -9,17 +11,11 @@ import {
   NavbarMenuToggle,
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
-
 import { link as linkStyles } from "@nextui-org/theme";
-
-import { siteConfig } from "@/config/site";
 import clsx from "clsx";
 import NextLink from "next/link";
-
-import { ThemeSwitch } from "@/components/theme-switch";
-
-import Image from "next/image";
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
+import Image from "next/image";
 
 export const Navbar = () => {
   const address = useAddress();
@@ -56,7 +52,6 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <ThemeSwitch />
           {address ? (
             <ConnectWallet
               theme={"light"}
