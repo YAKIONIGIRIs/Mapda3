@@ -5,20 +5,16 @@ export const siteConfig = {
   description: "Next generation Map on Web3",
   navItems: [
     {
-      label: "Home",
-      href: "/",
+      label: "ホーム",
+      href: "/home",
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "ルートコレクション",
+      href: "/collection",
     },
     {
-      label: "Blog",
-      href: "/blog",
-    },
-    {
-      label: "About",
-      href: "/about",
+      label: "あなたの貢献",
+      href: "/contribution",
     },
   ],
   navMenuItems: [
