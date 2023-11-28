@@ -1,0 +1,6 @@
+RUN /bin/sh -c pip install pillow
+RUN /bin/sh -c pip install numpy
+RUN /bin/sh -c pip install opencv-python
+RUN /bin/sh -c yum install -y mesa-libGL.x86_64
+COPY app.py /var/task/
+CMD ["app.handler"]
