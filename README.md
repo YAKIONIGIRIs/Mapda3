@@ -64,7 +64,7 @@ NEXT_PUBLIC_THIRDWEB_CLIENT_ID= # thirdwebのクライアントID
 ```
 
 > [!NOTE]
-> Google Maps API および Thirdweb のクライアント ID は、IP アドレス制限をかけることを推奨
+> Google Maps API および Thirdweb のクライアント ID は、IP アドレス制限をかけることを推奨します。
 
 ## 4. ビルド
 
